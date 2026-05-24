@@ -1,0 +1,52 @@
+#!/bin/bash
+
+cpu=$(top -bn1 | grep "Cpu" | awk '{print $2}' | cut -d'.' -f1)
+
+ram=$(free -h | awk 'NR==2 {print $3}')
+
+disk=$(df -h / | awk 'NR==2 {print $5}')
+
+uptime_data=$(uptime -p | cut -d " " -f2-4)
+
+load=$(uptime | awk -F'load average: ' '{print $2}' | cut -d',' -f1)
+
+hostname_data=$(hostname)
+
+kernel=$(uname -r)
+
+os=$(grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d '"')
+
+ip=$(hostname -I | awk '{print $1}')
+
+top_process=$(ps -eo comm,%cpu,%mem --sort=-%cpu | head -6 | sed ':a;N;$!ba;s/\n/<br>/g')
+
+services=$(for service in sshd httpd nginx mysqld docker
+do
+    status=$(systemctl is-active $service 2>/dev/null)
+    echo "$service : $status"
+done | sed ':a;N;$!ba;s/\n/<br>/g')
+
+users=$(who | awk '{print $1 "  " $3}' | sed ':a;N;$!ba;s/\n/<br>/g')
+
+failed=$(lastb | head -5 | sed ':a;N;$!ba;s/\n/<br>/g')
+
+ports=$(ss -tuln | awk 'NR>1 {split($5,a,":"); print a[length(a)]}' | sort -u | sed ':a;N;$!ba;s/\n/<br>/g')ports=$(ss -tuln | awk 'NR>1 {split($5,a,":"); print a[length(a)]}' | sort -u | sed ':a;N;$!ba;s/\n/<br>/g')
+
+cat <<EOF > /var/www/html/monitoring/data.json
+{
+"cpu":"$cpu%",
+"ram":"$ram",
+"disk":"$disk",
+"uptime":"$uptime_data",
+"load":"$load",
+"hostname":"$hostname_data",
+"kernel":"$kernel",
+"os":"$os",
+"ip":"$ip",
+"top_process":"$top_process",
+"services":"$services",
+"users":"$users",
+"failed":"$failed",
+"ports":"$ports"
+}
+EOF
