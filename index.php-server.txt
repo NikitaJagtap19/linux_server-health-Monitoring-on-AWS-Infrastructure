@@ -1,0 +1,239 @@
+<?php
+$json = file_get_contents("data.json");
+$data = json_decode($json, true);
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Server Monitoring Dashboard</title>
+
+<meta http-equiv="refresh" content="5">
+
+<?php
+$json = file_get_contents("data.json");
+$data = json_decode($json, true);
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Server Monitoring Dashboard</title>
+
+<meta http-equiv="refresh" content="5">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>SERVER HEALTH MONITORING</h1>
+
+<div class="status">
+
+<span>Region : Mumbai</span>
+
+<span class="active">ACTIVE</span>
+
+</div>
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>SERVER HEALTH MONITORING</h1>
+
+<div class="status">
+
+<span>Region : Mumbai</span>
+
+<span class="active">ACTIVE</span>
+
+</div>
+
+</div>
+
+<!-- FIRST ROW -->
+
+<div class="cards">
+
+<div class="card">
+<h2>CPU Usage</h2>
+<p><?php echo $data["cpu"]; ?></p>
+</div>
+
+<div class="card">
+<h2>RAM Usage</h2>
+<p><?php echo $data["ram"]; ?></p>
+</div>
+
+<div class="card">
+<h2>Disk Usage</h2>
+<p><?php echo $data["disk"]; ?></p>
+</div>
+
+<div class="card">
+<h2>Uptime</h2>
+<p><?php echo $data["uptime"]; ?></p>
+</div>
+
+<div class="card">
+<h2>Load Average</h2>
+<p><?php echo $data["load"]; ?></p>
+</div>
+
+</div>
+
+<!-- SECOND ROW -->
+
+<div class="row">
+
+<div class="box">
+
+<h2>Top Processes</h2>
+
+<div>
+<?php echo $data["top_process"]; ?>
+</div>
+
+</div>
+
+<div class="box">
+
+<h2>System Information</h2>
+
+<div>
+OS : <?php echo $data["os"]; ?><br><br>
+<?php
+$json = file_get_contents("data.json");
+$data = json_decode($json, true);
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Server Monitoring Dashboard</title>
+
+<meta http-equiv="refresh" content="5">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>SERVER HEALTH MONITORING</h1>
+
+<div class="status">
+
+<span>Region : Mumbai</span>
+
+<span class="active">ACTIVE</span>
+
+</div>
+
+Hostname : <?php echo $data["hostname"]; ?><br><br>
+
+IP : <?php echo $data["ip"]; ?><br><br>
+
+Kernel : <?php echo $data["kernel"]; ?>
+</div>
+
+</div>
+
+<div class="box">
+
+<?php
+$json = file_get_contents("data.json");
+$data = json_decode($json, true);
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Server Monitoring Dashboard</title>
+
+<meta http-equiv="refresh" content="5">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>SERVER HEALTH MONITORING</h1>
+
+<div class="status">
+
+<span>Region : Mumbai</span>
+
+<span class="active">ACTIVE</span>
+
+</div>
+<h2>Service Status</h2>
+
+<div>
+<?php echo $data["services"]; ?>
+</div>
+
+</div>
+
+</div>
+
+<!-- THIRD ROW -->
+
+<div class="row">
+
+<div class="box">
+
+<h2>Logged In Users</h2>
+
+<div>
+<?php echo $data["users"]; ?>
+</div>
+
+</div>
+
+<div class="box">
+
+<h2>Failed Login Attempts</h2>
+
+<div>
+<?php echo $data["failed"]; ?>
+</div>
+
+</div>
+
+<div class="box">
+
+<h2>Open Ports</h2>
+
+<div>
+<?php echo $data["ports"]; ?>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
+~
